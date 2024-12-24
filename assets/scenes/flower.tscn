@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://dloxiff7qqnfa"]
+
+[ext_resource type="Script" path="res://assets/scripts/flower.gd" id="1_81xt4"]
+[ext_resource type="Texture2D" uid="uid://btyjvdrdn13vg" path="res://assets/sprites/testflower.png" id="1_egtw2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oduee"]
+size = Vector2(32, 32)
+
+[node name="Flower" type="Node2D"]
+script = ExtResource("1_81xt4")
+growth_time = 1
+hardiness = 3
+
+[node name="hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("RectangleShape2D_oduee")
+
+[node name="seed" type="Sprite2D" parent="."]
+texture = ExtResource("1_egtw2")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 32)
+
+[node name="sprout" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("1_egtw2")
+region_enabled = true
+region_rect = Rect2(32, 0, 32, 32)
+
+[node name="bud" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("1_egtw2")
+region_enabled = true
+region_rect = Rect2(64, 0, 32, 32)
+
+[node name="bloom" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("1_egtw2")
+region_enabled = true
+region_rect = Rect2(96, 0, 32, 32)
+
+[node name="dead" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("1_egtw2")
+region_enabled = true
+region_rect = Rect2(128, 0, 32, 32)
+
+[connection signal="input_event" from="hitbox" to="." method="_on_area_2d_input_event"]

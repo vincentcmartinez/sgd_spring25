@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://jfxxedobm6oh"]
+
+[ext_resource type="Script" path="res://assets/scripts/watercan.gd" id="1_wyomj"]
+[ext_resource type="Texture2D" uid="uid://b408b37k2qc4l" path="res://assets/sprites/items/watercan.png" id="2_7mvr5"]
+
+[node name="watercan" type="Node2D"]
+script = ExtResource("1_wyomj")
+charges = 15
+ID = 1
+item_name = "Water Can"
+description = "An old water can."
+buy_price = 50
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_7mvr5")

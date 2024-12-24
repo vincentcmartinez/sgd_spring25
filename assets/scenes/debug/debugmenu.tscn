@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://cek3wjjfwfq0i"]
+
+[ext_resource type="Script" path="res://assets/scripts/debug/debugmenu.gd" id="1_1ueyc"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_1ueyc")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = -320.0
+offset_top = -184.0
+offset_right = -235.0
+offset_bottom = -118.0
+grow_vertical = 2
+
+[node name="skipday" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Skip day"
+
+[node name="skipweek" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "skip week"
+
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
+[connection signal="pressed" from="VBoxContainer/skipday" to="." method="_on_skipday_pressed"]
+[connection signal="pressed" from="VBoxContainer/skipweek" to="." method="_on_skipweek_pressed"]
