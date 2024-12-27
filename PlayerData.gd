@@ -21,4 +21,10 @@ func get_current_money():
 		return null
 		
 func _on_player_ready(obj):
+	print("playerdata recieved player ready")
 	player = obj
+	SignalBus.emit("playerdata_ready")
+
+func inventory(index):
+	if(player):
+		return player.inventory[index]

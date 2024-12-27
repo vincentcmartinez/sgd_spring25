@@ -17,11 +17,11 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-DayManager="*res://assets/scripts/DayManager.gd"
 SignalBus="*res://assets/scripts/SignalBus.gd"
-DebugManager="*res://assets/scripts/DebugManager.gd"
-PlayerData="*res://PlayerData.gd"
 Items="*res://Items.gd"
+PlayerData="*res://PlayerData.gd"
+DayManager="*res://assets/scripts/DayManager.gd"
+DebugManager="*res://assets/scripts/DebugManager.gd"
 
 [display]
 

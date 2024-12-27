@@ -1,6 +1,8 @@
 extends Node
 
 @onready var items = []
+@onready var drop_items = []
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	load_items()
@@ -38,6 +40,7 @@ func load_items():
 	
 	items = scene_loads
 	SignalBus.emit_signal("items_ready")
+
 
 # Custom sort function
 func scene_id_sort(a, b):

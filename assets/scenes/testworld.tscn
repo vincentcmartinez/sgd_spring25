@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b2133ovj0k7io"]
+[gd_scene load_steps=6 format=3 uid="uid://b2133ovj0k7io"]
 
 [ext_resource type="PackedScene" uid="uid://1q5o1mr5w3yt" path="res://assets/scenes/game_cam.tscn" id="1_3xahy"]
 [ext_resource type="PackedScene" uid="uid://cmcemw1qn4i4q" path="res://assets/scenes/player.tscn" id="1_xwlel"]
+[ext_resource type="Script" path="res://assets/scenes/inventory_screen.gd" id="2_ms0u1"]
+[ext_resource type="PackedScene" uid="uid://dya5hp8twt46x" path="res://assets/scenes/inventory_slot.tscn" id="2_syc16"]
 [ext_resource type="PackedScene" uid="uid://dloxiff7qqnfa" path="res://assets/scenes/templates/flower.tscn" id="2_xhv8c"]
 
 [node name="Node2D" type="Node2D"]
@@ -9,8 +11,129 @@
 [node name="GameCam" parent="." instance=ExtResource("1_3xahy")]
 
 [node name="InventoryScreen" type="Node2D" parent="GameCam"]
+script = ExtResource("2_ms0u1")
+
+[node name="InventorySlot3" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
+position = Vector2(-160, -96)
+scale = Vector2(2, 2)
+index = 18
+
+[node name="InventorySlot4" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
+position = Vector2(-96, -96)
+scale = Vector2(2, 2)
+index = 19
+
+[node name="InventorySlot5" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
+position = Vector2(-32, -96)
+scale = Vector2(2, 2)
+index = 20
+
+[node name="InventorySlot6" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
+position = Vector2(32, -96)
+scale = Vector2(2, 2)
+index = 21
+
+[node name="InventorySlot7" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
+position = Vector2(96, -96)
+scale = Vector2(2, 2)
+index = 22
+
+[node name="InventorySlot8" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
+position = Vector2(160, -96)
+scale = Vector2(2, 2)
+index = 23
+
+[node name="InventorySlot9" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
+position = Vector2(160, -32)
+scale = Vector2(2, 2)
+index = 17
+
+[node name="InventorySlot10" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
+position = Vector2(96, -32)
+scale = Vector2(2, 2)
+index = 16
+
+[node name="InventorySlot11" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
+position = Vector2(32, -32)
+scale = Vector2(2, 2)
+index = 15
+
+[node name="InventorySlot12" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
+position = Vector2(-32, -32)
+scale = Vector2(2, 2)
+index = 14
+
+[node name="InventorySlot13" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
+position = Vector2(-96, -32)
+scale = Vector2(2, 2)
+index = 13
+
+[node name="InventorySlot14" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
+position = Vector2(-160, -32)
+scale = Vector2(2, 2)
+index = 12
+
+[node name="InventorySlot15" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
+position = Vector2(-160, 32)
+scale = Vector2(2, 2)
+index = 6
+
+[node name="InventorySlot16" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
+position = Vector2(-96, 32)
+scale = Vector2(2, 2)
+index = 7
+
+[node name="InventorySlot17" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
+position = Vector2(-32, 32)
+scale = Vector2(2, 2)
+index = 8
+
+[node name="InventorySlot18" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
+position = Vector2(32, 32)
+scale = Vector2(2, 2)
+index = 9
+
+[node name="InventorySlot19" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
+position = Vector2(96, 32)
+scale = Vector2(2, 2)
+index = 10
+
+[node name="InventorySlot20" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
+position = Vector2(160, 32)
+scale = Vector2(2, 2)
+index = 11
+
+[node name="InventorySlot21" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
+position = Vector2(160, 144)
+scale = Vector2(2, 2)
+index = 5
+
+[node name="InventorySlot22" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
+position = Vector2(96, 144)
+scale = Vector2(2, 2)
+index = 4
+
+[node name="InventorySlot23" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
+position = Vector2(32, 144)
+scale = Vector2(2, 2)
+index = 3
+
+[node name="InventorySlot24" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
+position = Vector2(-32, 144)
+scale = Vector2(2, 2)
+index = 2
+
+[node name="InventorySlot25" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
+position = Vector2(-96, 144)
+scale = Vector2(2, 2)
+index = 1
+
+[node name="InventorySlot26" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
+position = Vector2(-160, 144)
+scale = Vector2(2, 2)
 
 [node name="Player" parent="." instance=ExtResource("1_xwlel")]
+visible = false
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../GameCam")

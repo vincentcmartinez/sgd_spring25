@@ -5,13 +5,20 @@ extends Node2D
 
 var money = 0
 var actionable = true
-var inventory = [null, null, null, null, null, null, null, null, null, null]
-#var held_item = inventory[0]
-@onready var held_item = Items.get_item(1)
+var inventory = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
+
+
 func _ready() -> void:
 	SignalBus.connect("interact", interact)
+	#SignalBus.connect("items_ready", _on_items_ready)
+	inventory[0] = Items.get_item(1) # debug watercan 
 	SignalBus.emit_signal("player_ready", self)
-	await SignalBus.items_ready
+
+func _on_items_ready():
+	print("player recieved items ready")
+	inventory[0] = Items.get_item(1) # debug watercan 
+	SignalBus.emit_signal("player_ready", self)
+
 func _process(delta: float) -> void:
 	if not actionable:
 		return
@@ -49,24 +56,30 @@ func interact(obj):
 	pass
 
 func water(obj):
-	if held_item is Watercan:
-		if held_item.use():
+	if held_item() is Watercan:
+		if held_item().use():
 			SignalBus.emit_signal("plant_watered", obj)
-			# Calculate the direction from the player to the plant
+			play_directional_anim(obj, "water")
+
+func play_directional_anim(obj, action:String):
+	# Calculate the direction from the player to the plant
 			var direction = (obj.global_position - global_position).normalized()
 			# Determine the animation to play based on the direction
-			var animation = ""
+			var animation = action + "_"
 			if abs(direction.x) > abs(direction.y):
 				if direction.x > 0:
-					animation = "water_right"
+					animation += "right"
 				else:
-					animation = "water_left"
+					animation += "left"
 			else:
 				if direction.y > 0:
-					animation = "water_down"
+					animation += "down"
 				else:
-					animation = "water_up"
+					animation += "up"
 			actionable = false
 			animated_sprite.play(animation)
 			await animated_sprite.animation_finished
 			actionable = true
+
+func held_item():
+	return inventory[0]
