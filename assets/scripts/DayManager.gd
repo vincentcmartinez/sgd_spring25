@@ -1,25 +1,65 @@
 extends Node
 var frozen = false
-var day_num = 0
+var day_num = 1
 var time = 0
-const DAY_LENGTH = 6 #num of seconds (real life) in a day (game)
+const DAY_LENGTH = 60 #num of seconds (real life) in a day (game)
+const TIME_SCALE = 86400 / DAY_LENGTH
+var is_dawn = true
+var is_dusk = false
+var is_day = false
+var is_night = false
+@onready var dawn_end_timer: Timer
+@onready var dusk_start_timer: Timer
+@onready var midnight_timer: Timer
+var season = 0 # 0 - spring, 1 - summer, 2 - fall, 3 - winter
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	set_timers()
 	pass # Replace with function body.
 
-
+func set_timers():
+	dawn_end_timer = Timer.new()
+	dawn_end_timer.wait_time = (6 * 3600) / TIME_SCALE
+	dawn_end_timer.connect("timeout", _on_dawn_end)
+	dawn_end_timer.one_shot = true
+	add_child(dawn_end_timer)
+	dawn_end_timer.start()
+	
+	dusk_start_timer = Timer.new()
+	dusk_start_timer.wait_time = (18 * 3600) / TIME_SCALE
+	dusk_start_timer.connect("timeout", _on_dusk_start)
+	dusk_start_timer.one_shot = true
+	add_child(dusk_start_timer)
+	dusk_start_timer.start()
+	
+	midnight_timer = Timer.new()
+	midnight_timer.wait_time = (24 * 3600) / TIME_SCALE
+	midnight_timer.connect("timeout", _on_midnight)
+	midnight_timer.one_shot = true
+	add_child(midnight_timer)
+	midnight_timer.start()
+	
+func reset_timers():
+	dawn_end_timer.wait_time = (6 * 3600) / TIME_SCALE
+	dawn_end_timer.start()
+	dusk_start_timer.wait_time = (18 * 3600) / TIME_SCALE
+	dusk_start_timer.start()
+	midnight_timer.wait_time = (24 * 3600) / TIME_SCALE
+	midnight_timer.start()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if not frozen:
-		time += delta
-	if time >= 600:
-		end_day()
+	if frozen:
+		return
+
+	time += delta
 	pass
 
 func end_day():
 	time = 0
 	day_num += 1 
 	SignalBus.emit_signal("day_end")
+	#reset dawn and dusk timers
+	reset_timers()
 	print("day ended")
 
 func freeze():
@@ -27,3 +67,31 @@ func freeze():
 	
 func unfreeze():
 	frozen = false
+
+func get_time_string() -> String:
+	var suffix = "am"
+	var scaled_time = time * TIME_SCALE
+	var hours = int(scaled_time) / 3600
+	if hours < 1:
+		hours = 12
+	elif hours > 11:
+		hours = hours % 12
+		suffix = "pm"
+	return str(hours).pad_zeros(2)+ " " +suffix
+
+func _on_dawn_end():
+	is_dawn = false
+	is_night = false
+	is_day = true
+	print("dawn: transition to daytime")
+
+func _on_dusk_start():
+	is_day = false
+	is_night = true
+	is_dusk = true
+	print("dusk: transition to night time")
+
+func _on_midnight():
+	is_dawn = true
+	is_dusk = false
+	end_day()

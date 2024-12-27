@@ -4,6 +4,7 @@ signal day_end
 signal plant_watered
 signal interact
 signal cam_ready
+signal player_ready
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.

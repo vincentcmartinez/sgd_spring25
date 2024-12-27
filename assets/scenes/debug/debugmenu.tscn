@@ -13,9 +13,9 @@ script = ExtResource("1_1ueyc")
 layout_mode = 1
 anchors_preset = -1
 offset_left = -320.0
-offset_top = -184.0
+offset_top = -142.71
 offset_right = -235.0
-offset_bottom = -118.0
+offset_bottom = -76.71
 grow_vertical = 2
 
 [node name="skipday" type="Button" parent="VBoxContainer"]
@@ -26,6 +26,19 @@ text = "Skip day"
 layout_mode = 2
 text = "skip week"
 
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="setMoneyInput" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+placeholder_text = "set $"
+
+[node name="addMoneyInput" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+placeholder_text = "add $"
+
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
 [connection signal="pressed" from="VBoxContainer/skipday" to="." method="_on_skipday_pressed"]
 [connection signal="pressed" from="VBoxContainer/skipweek" to="." method="_on_skipweek_pressed"]
+[connection signal="text_submitted" from="VBoxContainer/HBoxContainer/setMoneyInput" to="." method="_on_set_money_input_text_submitted"]
+[connection signal="text_submitted" from="VBoxContainer/HBoxContainer/addMoneyInput" to="." method="_on_add_money_input_text_submitted"]

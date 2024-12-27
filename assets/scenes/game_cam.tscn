@@ -4,3 +4,39 @@
 
 [node name="GameCam" type="Camera2D"]
 script = ExtResource("1_oq746")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -320.0
+offset_top = -181.0
+offset_right = 320.0
+offset_bottom = -148.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 46.03
+grow_horizontal = 2
+
+[node name="day" type="Label" parent="Control/HBoxContainer"]
+custom_minimum_size = Vector2(154.695, 36.275)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Day: "
+
+[node name="time" type="Label" parent="Control/HBoxContainer"]
+custom_minimum_size = Vector2(154.695, 36.275)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Time: "
+
+[node name="money" type="Label" parent="Control/HBoxContainer"]
+custom_minimum_size = Vector2(154.695, 36.275)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Money:"

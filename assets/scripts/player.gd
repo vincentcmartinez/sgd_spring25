@@ -2,12 +2,15 @@ extends Node2D
 
 @export var speed := 200
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
+var money = 0
 var actionable = true
 var inventory = [null, null, null, null, null, null, null, null, null, null]
 #var held_item = inventory[0]
 var held_item = preload("res://assets/scenes/items/watercan.tscn").instantiate()
 func _ready() -> void:
 	SignalBus.connect("interact", interact)
+	SignalBus.emit_signal("player_ready", self)
 	
 func _process(delta: float) -> void:
 	if not actionable:
