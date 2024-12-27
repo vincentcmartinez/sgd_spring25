@@ -1,11 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://dya5hp8twt46x"]
+[gd_scene load_steps=4 format=3 uid="uid://dya5hp8twt46x"]
 
 [ext_resource type="Script" path="res://inventory_slot.gd" id="1_cnc1n"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_04mty"]
+font_size = 13
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rhd1a"]
 
 [node name="InventorySlot" type="Node2D"]
 script = ExtResource("1_cnc1n")
+
+[node name="displaycount" type="Label" parent="."]
+z_index = 3
+offset_left = 3.0
+offset_top = -2.0
+offset_right = 43.0
+offset_bottom = 21.0
+label_settings = SubResource("LabelSettings_04mty")
 
 [node name="clickbox" type="Area2D" parent="."]
 

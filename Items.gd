@@ -57,3 +57,9 @@ func extract_id_from_tscn(content):
 
 func get_item(id):
 	return items[id-1]["packedscene"].instantiate() #id - 1 to account for arrays starting at 0 
+
+func clone(item): # will only copy over the count, anything else might need a more specific function
+	var pack = items[item.ID-1]["packedscene"]
+	var newitem = pack.instantiate()
+	newitem.count = item.count 
+	return newitem

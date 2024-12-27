@@ -5,13 +5,14 @@ extends Node2D
 
 var money = 0
 var actionable = true
-var inventory = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
+var inventory = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
 
 
 func _ready() -> void:
 	SignalBus.connect("interact", interact)
 	#SignalBus.connect("items_ready", _on_items_ready)
 	inventory[0] = Items.get_item(1) # debug watercan 
+	inventory[1] = Items.get_item(1) #stack test
 	SignalBus.emit_signal("player_ready", self)
 
 func _on_items_ready():
@@ -62,7 +63,7 @@ func water(obj):
 			play_directional_anim(obj, "water")
 
 func play_directional_anim(obj, action:String):
-	# Calculate the direction from the player to the plant
+	# Calculate the direction from the player to the object
 			var direction = (obj.global_position - global_position).normalized()
 			# Determine the animation to play based on the direction
 			var animation = action + "_"

@@ -8,6 +8,9 @@ script = ExtResource("1_wyomj")
 charges = 15
 ID = 1
 item_name = "Water Can"
+stackable = true
+max_stack = 2
+count = 1
 description = "An old water can."
 buy_price = 50
 

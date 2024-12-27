@@ -43,6 +43,12 @@ position = Vector2(160, -96)
 scale = Vector2(2, 2)
 index = 23
 
+[node name="overflow" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
+position = Vector2(224, -96)
+scale = Vector2(2, 2)
+index = 24
+is_overflow = true
+
 [node name="InventorySlot9" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
 position = Vector2(160, -32)
 scale = Vector2(2, 2)
@@ -131,6 +137,23 @@ index = 1
 [node name="InventorySlot26" parent="GameCam/InventoryScreen" instance=ExtResource("2_syc16")]
 position = Vector2(-160, 144)
 scale = Vector2(2, 2)
+
+[node name="debug" type="Control" parent="GameCam/InventoryScreen"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameCam/InventoryScreen/debug"]
+layout_mode = 0
+offset_left = -312.0
+offset_top = -120.0
+offset_right = -219.0
+offset_bottom = -80.0
+
+[node name="selected" type="Label" parent="GameCam/InventoryScreen/debug/VBoxContainer"]
+layout_mode = 2
+text = "selected ind"
 
 [node name="Player" parent="." instance=ExtResource("1_xwlel")]
 visible = false
