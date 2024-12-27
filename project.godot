@@ -21,6 +21,7 @@ DayManager="*res://assets/scripts/DayManager.gd"
 SignalBus="*res://assets/scripts/SignalBus.gd"
 DebugManager="*res://assets/scripts/DebugManager.gd"
 PlayerData="*res://PlayerData.gd"
+Items="*res://Items.gd"
 
 [display]
 

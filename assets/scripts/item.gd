@@ -2,6 +2,7 @@ class_name Item extends Node2D
 @export var ID:int
 @export var item_name : String
 @export var stackable : bool
+@export var max_stack : int
 @export var count : int
 @export var description : String
 @export var sellable: bool

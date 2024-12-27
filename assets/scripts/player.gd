@@ -7,11 +7,11 @@ var money = 0
 var actionable = true
 var inventory = [null, null, null, null, null, null, null, null, null, null]
 #var held_item = inventory[0]
-var held_item = preload("res://assets/scenes/items/watercan.tscn").instantiate()
+@onready var held_item = Items.get_item(1)
 func _ready() -> void:
 	SignalBus.connect("interact", interact)
 	SignalBus.emit_signal("player_ready", self)
-	
+	await SignalBus.items_ready
 func _process(delta: float) -> void:
 	if not actionable:
 		return
