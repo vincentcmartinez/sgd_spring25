@@ -5,6 +5,7 @@ extends Camera2D
 @onready var item_label: Label = $"Control/VBoxContainer/HBoxContainer2/item label"
 
 
+
 var inv = null
 var signaled = false
 var inv_cooldown = false

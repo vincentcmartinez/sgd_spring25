@@ -11,8 +11,8 @@ outline_color = Color(0, 0, 0, 1)
 [node name="Control" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_top = 69.805
-offset_bottom = 69.805
+offset_top = 105.81
+offset_bottom = 105.81
 size_flags_horizontal = 0
 size_flags_vertical = 0
 script = ExtResource("1_1ueyc")

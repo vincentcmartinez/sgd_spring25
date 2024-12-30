@@ -15,6 +15,7 @@ func _ready() -> void:
 	#SignalBus.connect("items_ready", _on_items_ready)
 	inventory[0] = Items.get_item(1) # debug watercan 
 	inventory[1] = Items.get_item(1) #stack test
+	inventory[2] = Items.get_item(2) # seeds test
 	SignalBus.emit_signal("player_ready", self)
 	
 func _on_items_ready():
@@ -63,8 +64,14 @@ func interact(obj):
 		water(obj)
 	elif obj is NPC:
 		obj.speak()
+	elif obj is PlantableTile:
+		plant_on(obj)
 	pass
 
+func plant_on(obj:PlantableTile):
+	if held_item() is Plantable and obj.can_hold_plant():
+		held_item().plant_at(obj)
+	
 func water(obj):
 	if held_item() is Watercan:
 		if held_item().use():

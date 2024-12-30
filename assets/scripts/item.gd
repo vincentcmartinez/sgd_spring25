@@ -16,3 +16,8 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+func decrease_count():
+	if count == 1:
+		self.queue_free()
+	else:
+		count -= 1
