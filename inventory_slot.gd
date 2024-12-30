@@ -1,54 +1,78 @@
 extends Node2D
 var is_hovered = false
-var item = null
 @export var index:int
 @export var is_overflow:bool
 
+@onready var sprite = $Sprite2D
+var cached_sprite_path = null
+var selected = false
+var hovercolor = Color(0.53,0.53,0.53,0.5)
+var defaultcolor = Color(0.33,0.33,0.33,0.4)
 func _ready() -> void:
-	await SignalBus.playerdata_ready
-	var invitem = PlayerData.inventory(index)
-	if invitem:
-		attach_item(invitem)
+	print(index)
+	print(PlayerData.inventory(index))
+	if is_overflow:
+		hide()
 	pass # Replace with function body.
 
-func attach_item(new_item):
-	if new_item == null:
-		item = null
-		$displaycount.text = ""
-		return
-	if new_item.get_parent():
-		new_item.reparent(self, false)
-	else:
-		add_child(new_item)
-	item = new_item
-	update_display_count()
+func _process(_delta: float) -> void:
+	update_display()
 
 func remove_item():
 	if item:
-		remove_child(item)
-		item.queue_free()
-		item = null
-	update_display_count()
+		PlayerData.remove_inv(index)
+
 
 func add_stack(other):
-	item.count += other.item.count
-	update_display_count()
+	item().count += other.item().count
+	PlayerData.remove_inv(other.index)
+
 
 func split_stack():
-	item.count -= int(item.count / 2)
-	update_display_count()
-	
-func update_display_count():
-	if item == null:
-		$displaycount.text = ""
-	elif item.stackable:
-		$displaycount.text = str(item.count)
+	@warning_ignore("shadowed_variable")
+	var item = item()
+	if item and item.stackable and item.count > 1:
+		var new_item = Items.clone(item)
+		new_item.count = item.count - int(item.count / 2)
+		item().count -= int(item().count / 2)
+		PlayerData.add_overflow(new_item)
+
+func update_display():
+	if not is_overflow:
+		if is_hovered:
+			$ColorRect.color = hovercolor
+		else:
+			$ColorRect.color = defaultcolor
+		if selected:
+			$SelectedBorder.show()
+		else:
+			$SelectedBorder.hide()
+		if item() == null:
+			$displaycount.text = ""
+			sprite.texture = null
+			return
+		elif item().stackable:
+			$displaycount.text = str(item().count)
+		@warning_ignore("shadowed_variable")
+		var item = item()
+		
+		if item.sprite_path != cached_sprite_path:
+			var image = load(item.sprite_path)
+			var texture = ImageTexture.create_from_image(image)
+			sprite.texture = texture
+		
 	return
 	
-func _on_clickbox_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func item():
+	return PlayerData.inventory(index)
+
+func drop():
+	PlayerData.drop(index)
+
+func _on_clickbox_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_action_pressed("leftclick"):
 		SignalBus.emit_signal("invslot_clicked", self)
-	pass # Replace with function body.
+
 
 func _on_clickbox_mouse_entered() -> void:
 	SignalBus.emit_signal("invslot_hovered", self)

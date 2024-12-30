@@ -1,4 +1,9 @@
 class_name Watercan extends Tool
+
+
+func _ready() -> void:
+	return
+
 var usable = true
 func use():
 	if usable:

@@ -1,24 +1,41 @@
 extends Node
 
+@warning_ignore("unused_signal")
 signal day_end
+@warning_ignore("unused_signal")
 signal plant_watered
+@warning_ignore("unused_signal")
 signal interact
+@warning_ignore("unused_signal")
 signal cam_ready
+@warning_ignore("unused_signal")
 signal player_ready
+@warning_ignore("unused_signal")
 signal items_ready
+@warning_ignore("unused_signal")
 signal playerdata_ready
+@warning_ignore("unused_signal")
 signal invslot_clicked
+@warning_ignore("unused_signal")
 signal invslot_hovered
+@warning_ignore("unused_signal")
 signal invslot_unhovered
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+@warning_ignore("unused_signal")
+signal inv_closed
+@warning_ignore("unused_signal")
+signal inv_opened
+@warning_ignore("unused_signal")
+signal new_dialogue
+@warning_ignore("unused_signal")
+signal item_given_to_npc
+@warning_ignore("unused_signal")
+signal dialogue_finished
+@warning_ignore("unused_signal")
+signal convotest
+@warning_ignore("unused_signal")
+signal play_random_song
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-func emit(str):
-	emit_signal(str)
-	print("emitted: ", str)
+func emit(string):
+	emit_signal(string)
+	print("emitted: ", string)

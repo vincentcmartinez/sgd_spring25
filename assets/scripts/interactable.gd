@@ -3,7 +3,7 @@ class_name Interactable extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#$hitbox.connect("input_event", _on_area_2d_input_event)
+	$hitbox.connect("input_event", _on_area_2d_input_event)
 	pass # Replace with function body.
 
 

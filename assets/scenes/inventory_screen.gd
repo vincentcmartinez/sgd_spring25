@@ -3,7 +3,7 @@ var current_hovered = null
 var last_hovered = null
 var dragging = false
 var selected_slot = null
-@onready var overflow_slot = $overflow
+@onready var overflow_slot = $slots/overflow
 
 func _ready() -> void:
 	SignalBus.connect("invslot_clicked", _on_click)
@@ -13,10 +13,9 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("leftclick"):
-		
 		dragging = true
 		selected_slot = current_hovered
-		if overflow_slot.item:
+		if overflow_slot.item():
 			swap(overflow_slot, current_hovered)
 		print("dragging")
 	if event.is_action_released("leftclick"):
@@ -25,14 +24,15 @@ func _input(event: InputEvent) -> void:
 			if current_hovered:
 				swap(selected_slot, current_hovered)
 			else:
-				drop()
-			#selected_slot = null
+				drop(selected_slot)
+			selected_slot.selected = false
 		print("dragging false")
 	if event.is_action_pressed("split_item"):
 		if selected_slot:
 			split(selected_slot)
-
-func _process(delta: float) -> void:
+	return
+	
+func _process(_delta: float) -> void:
 	if selected_slot:
 		$debug/VBoxContainer/selected.text = "selected index: " + str(selected_slot.index)
 	else:
@@ -40,15 +40,20 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_click(slot):
+	if selected_slot:
+		selected_slot.selected = false
 	selected_slot = slot
+	selected_slot.selected = true
 	return
 
 func _on_hover(slot):
 	current_hovered = slot
+	slot.is_hovered = true
 	print("hovered", slot.index)
 	return
 
 func _on_unhover(slot):
+	slot.is_hovered = false
 	if current_hovered:
 		last_hovered = current_hovered
 	current_hovered = null
@@ -58,29 +63,19 @@ func _on_unhover(slot):
 func swap(current, other):
 	if current == other or other == null:
 		return
-	var selected_item = current.item
-	var other_item = other.item
+	var selected_item = current.item()
+	var other_item = other.item()
 	if other_item and selected_item.ID == other_item.ID:
 		if selected_item.stackable and (selected_item.count + other_item.count <= selected_item.max_stack):
 			other.add_stack(current)
-			current.remove_item()
-			PlayerData.remove_inv(current.index)
 			return
-	current.attach_item(other_item)
-	other.attach_item(selected_item)
 	PlayerData.swap_inv(other.index, current.index)
 
-func drop():
+func drop(slot):
 	print("dropped item")
+	slot.drop()
+	
 	return
 
 func split(slot):
-	var item = slot.item
-	if item and item.stackable and item.count > 1:
-		
-		var new_item = Items.clone(item)
-		new_item.count = item.count - int(item.count / 2)
-		slot.split_stack()
-		selected_slot = overflow_slot
-
-		overflow_slot.attach_item(new_item)
+	slot.split_stack()

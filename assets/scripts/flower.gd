@@ -27,7 +27,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if debug and debugHolder:
 		stagelabel.text = "s:" + str(current_stage_index)
 		dswlabel.text = "w:" + str(days_since_watered)

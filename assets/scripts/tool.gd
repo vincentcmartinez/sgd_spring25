@@ -1,5 +1,7 @@
 class_name Tool extends Item
 @export var charges:int
+@export var max_charges:int
+
 
 func use():
 	charges -= 1

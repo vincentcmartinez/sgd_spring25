@@ -14,6 +14,12 @@ func _process(delta: float) -> void:
 
 	pass
 
+func drop(index):
+	var item = player.inventory[index]
+	var dropped = Items.create_drop_item(item)
+	player.inventory[index] = null
+	player.drop(dropped)
+	
 func get_current_money():
 	if player:
 		return player.money
@@ -36,3 +42,9 @@ func swap_inv(first, second):
 
 func remove_inv(index):
 	player.inventory[index] = null
+
+func add_overflow(item):
+	player.inventory[24] = item
+
+func get_active_item():
+	return player.held_item()

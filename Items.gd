@@ -2,7 +2,7 @@ extends Node
 
 @onready var items = []
 @onready var drop_items = []
-
+@onready var dropitem = preload("res://assets/scenes/drop_item.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	load_items()
@@ -63,3 +63,9 @@ func clone(item): # will only copy over the count, anything else might need a mo
 	var newitem = pack.instantiate()
 	newitem.count = item.count 
 	return newitem
+
+func create_drop_item(item):
+	if item:
+		var newdrop = dropitem.instantiate()
+		newdrop.set_item(item)
+		return newdrop
