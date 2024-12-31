@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://tpn3u80c1bsx"]
+[gd_scene load_steps=7 format=3 uid="uid://tpn3u80c1bsx"]
 
 [ext_resource type="Script" path="res://npc.gd" id="1_t5f2b"]
 [ext_resource type="PackedScene" uid="uid://wfajuc7nk6w6" path="res://assets/scenes/templates/conversation.tscn" id="2_qeda2"]
@@ -7,6 +7,8 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0amcf"]
 radius = 32.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dpvfd"]
 
 [node name="NPC" type="Node2D"]
 script = ExtResource("1_t5f2b")
@@ -57,6 +59,12 @@ debugname = "got signal"
 
 [node name="Message" parent="Convos/Conversation4/Messages" index="0"]
 text = "signal test worked"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 16)
+shape = SubResource("RectangleShape2D_dpvfd")
 
 [editable path="Convos/Conversation"]
 [editable path="Convos/Conversation2"]

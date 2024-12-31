@@ -9,6 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://1q5o1mr5w3yt" path="res://assets/scenes/game_cam.tscn" id="5_0lexq"]
 [ext_resource type="Texture2D" uid="uid://b4wxxi8nejd31" path="res://assets/sprites/backwards_walk_anim.png" id="5_ecivr"]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wb534"]
+radius = 17.0
+height = 38.0
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_iug8j"]
 atlas = ExtResource("2_w14xm")
 region = Rect2(0, 0, 64, 64)
@@ -453,24 +457,23 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wb534"]
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_sewm8"]
 radius = 36.0555
 
-[node name="Player" type="Node2D"]
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(0, 14)
+motion_mode = 1
 script = ExtResource("1_ou4u7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 15)
+shape = SubResource("CapsuleShape2D_wb534")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5fvoc")
 animation = &"walk_up"
 frame = 2
 frame_progress = 0.836069
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-shape = SubResource("CapsuleShape2D_wb534")
 
 [node name="interactzone" type="Area2D" parent="."]
 unique_name_in_owner = true

@@ -2,8 +2,10 @@ extends Camera2D
 @onready var day: Label = $Control/VBoxContainer/HBoxContainer/day
 @onready var time: Label = $Control/VBoxContainer/HBoxContainer/time
 @onready var money: Label = $Control/VBoxContainer/HBoxContainer2/money
-@onready var item_label: Label = $"Control/VBoxContainer/HBoxContainer2/item label"
+@onready var season_label: Label = $Control/VBoxContainer/HBoxContainer2/Season
 
+@onready var rain: ColorRect = $rain
+@onready var snow: ColorRect = $snow
 
 
 var inv = null
@@ -12,6 +14,10 @@ var inv_cooldown = false
 var inv_showing = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	SignalBus.connect("rain_start", _on_rain)
+	SignalBus.connect("snow_start", _on_snow)
+	SignalBus.connect("snow_end", _on_snow_end)
+	SignalBus.connect("rain_end", _on_rain_end)
 	pass # Replace with function body.
 
 
@@ -20,10 +26,11 @@ func _process(_delta: float) -> void:
 	if not signaled:
 		signaled = true
 		SignalBus.emit_signal("cam_ready", self)
+	
 	set_day_label()
 	set_time_label()
 	set_money_label()
-	#set_active_item_label()
+	set_season_label()
 	pass
 
 func set_day_label():
@@ -40,12 +47,10 @@ func set_money_label():
 		else:
 			money.text = "Money: " + str(currentMoney)
 
-func set_active_item_label():
-	var active_item = PlayerData.get_active_item()
-	if active_item:
-		item_label.text = "Active item: " + str(active_item.name)
-	else:
-		item_label.text = "Active item: none"
+func set_season_label():
+	var season = DayManager.season
+	var seasons = ["Spring", "Summer", "Fall", "Winter"]
+	season_label.text = "Season: " + seasons[season]
 	
 func open_inv():
 	if inv_cooldown:
@@ -68,4 +73,19 @@ func close_inv():
 	$Hotbar.show()
 	await get_tree().create_timer(0.5).timeout
 	inv_cooldown = false
-	
+
+func _on_rain():
+	var fadetween = get_tree().create_tween()
+	fadetween.tween_property(rain, "modulate", Color(50,50,255,255), 3)
+
+func _on_rain_end():
+	var fadetween = get_tree().create_tween()
+	fadetween.tween_property(rain, "modulate", Color(50,50,255,0), 3)
+
+func _on_snow():
+	var fadetween = get_tree().create_tween()
+	fadetween.tween_property(snow, "modulate", Color(50,50,255,255), 3)
+
+func _on_snow_end():
+	var fadetween = get_tree().create_tween()
+	fadetween.tween_property(snow, "modulate", Color(50,50,255,0), 3)

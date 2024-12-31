@@ -21,6 +21,7 @@ func _process(delta: float) -> void:
 func _on_skipday_pressed() -> void:
 	if disabled:
 		return
+	SignalBus.emit_signal("midnight_debug")
 	DayManager.end_day()
 	pass # Replace with function body.
 
@@ -54,6 +55,7 @@ func _on_add_money_input_text_submitted(new_text: String) -> void:
 
 func _on_give_blurbo_water_pressed() -> void:
 	SignalBus.emit_signal("item_given_to_npc", Items.get_item(1), DebugManager.Blurbo)
+	PlayerData.remove_inv(3)
 	pass # Replace with function body.
 
 

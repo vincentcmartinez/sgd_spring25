@@ -10,6 +10,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	update_shading()
 	pass
 
 func plant(obj:flower):
@@ -19,3 +20,7 @@ func plant(obj:flower):
 
 func can_hold_plant():
 	return held_plant == null
+
+func update_shading():
+	if held_plant:
+		$shading.visible = held_plant.watered

@@ -1,7 +1,7 @@
-extends Node2D
+extends CharacterBody2D
 
 @export var speed := 200
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var animated_sprite: AnimatedSprite2D = $"AnimatedSprite2D"
 
 var money = 0
 var actionable = true
@@ -18,10 +18,18 @@ func _ready() -> void:
 	inventory[2] = Items.get_item(2) # seeds test
 	SignalBus.emit_signal("player_ready", self)
 	
+
+func _physics_process(delta):
+	if actionable:
+		var direction = Input.get_vector("left", "right", "up", "down")
+		velocity = direction * speed
+		move_and_slide()
+
 func _on_items_ready():
 	print("player recieved items ready")
 	inventory[0] = Items.get_item(1) # debug watercan 
 	SignalBus.emit_signal("player_ready", self)
+
 
 
 

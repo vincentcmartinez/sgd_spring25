@@ -34,7 +34,19 @@ signal dialogue_finished
 signal convotest
 @warning_ignore("unused_signal")
 signal play_random_song
-
+@warning_ignore("unused_signal")
+signal rain_start
+@warning_ignore("unused_signal")
+signal rain_end
+@warning_ignore("unused_signal")
+signal snow_start
+@warning_ignore("unused_signal")
+signal snow_end
+@warning_ignore("unused_signal")
+signal dawn_end
+@warning_ignore("unused_signal")
+signal dusk_start
+signal midnight_debug
 
 func emit(string):
 	emit_signal(string)

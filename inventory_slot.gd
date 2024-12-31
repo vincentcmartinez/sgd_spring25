@@ -33,8 +33,10 @@ func split_stack():
 	var item = item()
 	if item and item.stackable and item.count > 1:
 		var new_item = Items.clone(item)
-		new_item.count = item.count - int(item.count / 2)
-		item().count -= int(item().count / 2)
+		
+		new_item.count = item.count - floor(item.count /2.0)
+		item.count = item.count - ceil(item.count/2.0)
+
 		PlayerData.add_overflow(new_item)
 
 func update_display():
