@@ -1,10 +1,11 @@
 class_name NPC extends Interactable
 
+@export var is_world_object: bool = false
 @onready var convos: Node = $Convos
 @export var npc_name:String
 @export var exhaust_dialogue_text: String
 @onready var exhaust_convo
-@export_range(0, 2, 0.1) var voice_pitch: float = 1
+@export_range(-1, 2, 0.1) var voice_pitch: float = 1
 var current_convo_index = 0
 var requested_item_id
 var is_speaking = false
@@ -32,6 +33,8 @@ func sign_messages():
 			message.speaker = npc_name
 
 func get_next_convo():
+	if is_world_object:
+		return convos.get_child(0) # always use the same convo for world objects 
 	if current_convo_index < convos.get_child_count():
 		var convo = convos.get_child(current_convo_index)
 		return convo

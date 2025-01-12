@@ -68,6 +68,8 @@ func add_to_inv(item): # returns false if you cannot currently fit the item in y
 	else:
 		return false
 func interact(obj):
+	if not actionable:
+		return
 	if obj is flower:
 		water(obj)
 	elif obj is NPC:
